@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adi Mohite - Portfolio</title>
+    <!-- Bootstrap 5 CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #121212;
+            color: #f1f5f9; /* Updated default body text to a brighter, off-white color */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .navbar {
+            background-color: #1a1a1a !important;
+        }
+        .hero-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            border-bottom: 1px solid #333;
+        }
+        .card {
+            background-color: #1e1e1e;
+            border: 1px solid #2d2d2d;
+            color: #f1f5f9; /* Updated card text color for better contrast */
+            transition: transform 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: #0d6efd;
+        }
+        .badge {
+            background-color: #2b2b2b;
+            color: #38bdf8; /* Brighter accent color for badges */
+            border: 1px solid #0d6efd;
+            font-weight: 500;
+        }
+        section {
+            padding: 60px 0;
+            border-bottom: 1px solid #222;
+        }
+        footer {
+            background-color: #1a1a1a;
+            color: #94a3b8; /* Lighter gray for footer text */
+            padding: 30px 0;
+        }
+    
+        /* ===== Portfolio Animations ===== */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            overflow-x: hidden;
+        }
+
+        /* Animated background glow */
+        body::before {
+            content: "";
+            position: fixed;
+            width: 420px;
+            height: 420px;
+            border-radius: 50%;
+            background: rgba(13, 110, 253, 0.10);
+            filter: blur(70px);
+            top: -120px;
+            left: -120px;
+            z-index: -1;
+            animation: floatingGlow 8s ease-in-out infinite alternate;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            width: 360px;
+            height: 360px;
+            border-radius: 50%;
+            background: rgba(56, 189, 248, 0.08);
+            filter: blur(70px);
+            bottom: -100px;
+            right: -100px;
+            z-index: -1;
+            animation: floatingGlow 10s ease-in-out infinite alternate-reverse;
+        }
+
+        /* Navbar */
+        .navbar {
+            animation: slideDown 0.8s ease both;
+        }
+
+        .navbar-brand {
+            transition: transform 0.3s ease, text-shadow 0.3s ease;
+        }
+
+        .navbar-brand:hover {
+            transform: scale(1.08);
+            text-shadow: 0 0 15px rgba(56, 189, 248, 0.8);
+        }
+
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .nav-link:hover {
+            transform: translateY(-2px);
+            color: #38bdf8 !important;
+        }
+
+        .nav-link::after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            bottom: 2px;
+            width: 0;
+            height: 2px;
+            background: #38bdf8;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover::after {
+            width: 70%;
+        }
+
+        /* Hero */
+        .hero-section {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before,
+        .hero-section::after {
+            content: "";
+            position: absolute;
+            border-radius: 50%;
+            border: 1px solid rgba(56, 189, 248, 0.15);
+            animation: pulseRing 5s linear infinite;
+        }
+
+        .hero-section::before {
+            width: 250px;
+            height: 250px;
+            top: 10%;
+            left: 5%;
+        }
+
+        .hero-section::after {
+            width: 180px;
+            height: 180px;
+            bottom: 5%;
+            right: 8%;
+            animation-delay: 1.5s;
+        }
+
+        .hero-section h1 {
+            animation: fadeUp 0.9s ease both, glowText 3s ease-in-out infinite alternate;
+        }
+
+        .hero-section .lead {
+            animation: fadeUp 1s 0.2s ease both;
+        }
+
+        .hero-section p.text-info {
+            animation: fadeUp 1s 0.35s ease both;
+        }
+
+        .hero-section .btn {
+            animation: fadeUp 1s 0.5s ease both;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .hero-section .btn:hover {
+            transform: translateY(-5px) scale(1.04);
+            box-shadow: 0 8px 25px rgba(56, 189, 248, 0.25);
+        }
+
+        /* Section headings */
+        section h2 {
+            position: relative;
+            animation: fadeUp 0.8s ease both;
+        }
+
+        section h2::after {
+            content: "";
+            display: block;
+            width: 0;
+            height: 3px;
+            margin: 10px auto 0;
+            background: #38bdf8;
+            border-radius: 5px;
+            animation: lineGrow 1.2s 0.3s ease forwards;
+        }
+
+        /* Cards */
+        .card {
+            opacity: 0;
+            transform: translateY(35px);
+            transition:
+                opacity 0.7s ease,
+                transform 0.4s ease,
+                box-shadow 0.4s ease,
+                border-color 0.4s ease;
+        }
+
+        .card.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .card:hover {
+            transform: translateY(-10px) scale(1.015);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
+        }
+
+        /* Stagger cards */
+        .row > [class*="col-"]:nth-child(1) .card { transition-delay: 0.05s; }
+        .row > [class*="col-"]:nth-child(2) .card { transition-delay: 0.15s; }
+        .row > [class*="col-"]:nth-child(3) .card { transition-delay: 0.25s; }
+        .row > [class*="col-"]:nth-child(4) .card { transition-delay: 0.35s; }
+
+        /* Skill badges */
+        .badge {
+            display: inline-block;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .badge:hover {
+            transform: translateY(-4px) scale(1.08);
+            box-shadow: 0 5px 15px rgba(13, 110, 253, 0.25);
+        }
+
+        /* Icons */
+        .card i {
+            display: inline-block;
+            transition: transform 0.4s ease;
+        }
+
+        .card:hover i {
+            transform: rotateY(360deg) scale(1.15);
+        }
+
+        /* Footer */
+        footer {
+            animation: fadeUp 1s ease both;
+        }
+
+        /* Keyframes */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-60px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes glowText {
+            from {
+                text-shadow: 0 0 5px rgba(56, 189, 248, 0.2);
+            }
+            to {
+                text-shadow: 0 0 25px rgba(56, 189, 248, 0.75);
+            }
+        }
+
+        @keyframes lineGrow {
+            to {
+                width: 70px;
+            }
+        }
+
+        @keyframes floatingGlow {
+            from {
+                transform: translate(0, 0) scale(1);
+            }
+            to {
+                transform: translate(80px, 50px) scale(1.2);
+            }
+        }
+
+        @keyframes pulseRing {
+            0% {
+                transform: scale(0.8);
+                opacity: 0.15;
+            }
+            50% {
+                transform: scale(1.15);
+                opacity: 0.45;
+            }
+            100% {
+                transform: scale(0.8);
+                opacity: 0.15;
+            }
+        }
+
+        /* Respect accessibility settings */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-info" href="#">Adi Mohite</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link text-light" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link text-light" href="#education">Education</a></li>
+                    <li class="nav-item"><a class="nav-link text-light" href="#skills">Skills</a></li>
+                    <li class="nav-item"><a class="nav-link text-light" href="#projects">Projects</a></li>
+                    <li class="nav-item"><a class="nav-link text-light" href="#certifications">Certifications</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero / Header Section -->
+    <header class="hero-section text-center">
+        <div class="container">
+            <h1 class="display-4 fw-bold text-info mb-3">Adi Mohite</h1>
+            <p class="lead text-light mb-4">Final-Year BCA Student & Aspiring Software Developer</p>
+            <p class="text-info mb-4"><i class="bi bi-geo-alt-fill me-1"></i> Vita, India</p>
+            <div class="d-flex justify-content-center gap-3">
+                <a href="mailto:email@example.com" class="btn btn-outline-info"><i class="bi bi-envelope-fill me-2"></i>Email Me</a>
+                <a href="https://linkedin.com" target="_blank" class="btn btn-outline-light"><i class="bi bi-linkedin me-2"></i>LinkedIn</a>
+                <a href="https://github.com" target="_blank" class="btn btn-outline-light"><i class="bi bi-github me-2"></i>GitHub</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Professional Summary -->
+    <section id="about" class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h2 class="fw-bold mb-4 text-info">Professional Summary</h2>
+                <p class="text-light lead">
+                    Dedicated and detail-oriented final-year Bachelor of Computer Applications (BCA) student graduating in 2027 from Shivaji University. Strong academic foundation in core computer science concepts, database management systems, Python programming, software engineering, and modern web development. Eager to leverage technical skills in full-stack development, data analysis, and software engineering in a professional IT environment.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="container">
+        <h2 class="fw-bold mb-5 text-center text-info">Education</h2>
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card p-4">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h4 class="fw-bold text-light mb-0">Bachelor of Computer Applications (BCA)</h4>
+                        <span class="badge">Graduation: 2027</span>
+                    </div>
+                    <h5 class="text-info mb-3">Shivaji University, Kolhapur, Maharashtra</h5>
+                    <p class="text-light mb-2"><strong class="text-info">Relevant Coursework:</strong> Data Structures, Database Management Systems, Software Engineering, Python Programming, Advance Java, Web Technologies, Big Data Analytics, Machine Learning, and Operating Systems.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Skills Section -->
+    <section id="skills" class="container">
+        <h2 class="fw-bold mb-5 text-center text-info">Technical Skills</h2>
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-3">
+                <div class="card p-4 h-100">
+                    <h5 class="fw-bold text-info mb-3"><i class="bi bi-code-slash me-2"></i>Programming</h5>
+                    <div class="d-flex flex-wrap gap-2">
+                        <span class="badge py-2 px-3">Python</span>
+                        <span class="badge py-2 px-3">Java</span>
+                        <span class="badge py-2 px-3">C#</span>
+                        <span class="badge py-2 px-3">PHP</span>
+                        <span class="badge py-2 px-3">JavaScript</span>
+                        <span class="badge py-2 px-3">SQL</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="card p-4 h-100">
+                    <h5 class="fw-bold text-info mb-3"><i class="bi bi-globe me-2"></i>Web Technologies</h5>
+                    <div class="d-flex flex-wrap gap-2">
+                        <span class="badge py-2 px-3">HTML5 / CSS3</span>
+                        <span class="badge py-2 px-3">AngularJS</span>
+                        <span class="badge py-2 px-3">Node.js</span>
+                        <span class="badge py-2 px-3">Express.js</span>
+                        <span class="badge py-2 px-3">ASP.NET</span>
+                        <span class="badge py-2 px-3">Bootstrap</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="card p-4 h-100">
+                    <h5 class="fw-bold text-info mb-3"><i class="bi bi-database me-2"></i>Databases & Tools</h5>
+                    <div class="d-flex flex-wrap gap-2">
+                        <span class="badge py-2 px-3">MySQL</span>
+                        <span class="badge py-2 px-3">Oracle</span>
+                        <span class="badge py-2 px-3">MongoDB</span>
+                        <span class="badge py-2 px-3">Git / GitHub</span>
+                        <span class="badge py-2 px-3">VS Code</span>
+                        <span class="badge py-2 px-3">XAMPP</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="card p-4 h-100">
+                    <h5 class="fw-bold text-info mb-3"><i class="bi bi-gear me-2"></i>Core Competencies</h5>
+                    <div class="d-flex flex-wrap gap-2">
+                        <span class="badge py-2 px-3">SDLC</span>
+                        <span class="badge py-2 px-3">OOP Concepts</span>
+                        <span class="badge py-2 px-3">Data Preprocessing</span>
+                        <span class="badge py-2 px-3">RESTful APIs</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Academic Projects Section -->
+    <section id="projects" class="container">
+        <h2 class="fw-bold mb-5 text-center text-info">Academic Projects</h2>
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="card p-4 h-100">
+                    <h4 class="fw-bold text-light mb-2">Comprehensive Car Showroom Web App</h4>
+                    <p class="text-info small mb-3">Web Development & Database Project</p>
+                    <ul class="text-light ps-3 mb-0">
+                        <li class="mb-2">Designed and developed a dynamic web application featuring user authentication, product catalog modules, and brand-specific vehicle landing pages.</li>
+                        <li class="mb-2">Implemented backend logic using PHP and Node.js with secure database connectivity via MySQL.</li>
+                        <li>Created responsive user interfaces leveraging HTML5, CSS3, and JavaScript with modern layouts and validation.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card p-4 h-100">
+                    <h4 class="fw-bold text-light mb-2">Database Management System Implementation</h4>
+                    <p class="text-info small mb-3">Academic Database Project</p>
+                    <ul class="text-light ps-3 mb-0">
+                        <li class="mb-2">Designed and built relational database schemas, ER diagrams, and normalized structures (up to 3NF) for enterprise scenarios like sales and inventory.</li>
+                        <li>Wrote complex SQL queries involving multi-table joins, subqueries, views, and PL/SQL procedures for efficient data operations.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications Section -->
+    <section id="certifications" class="container">
+        <h2 class="fw-bold mb-5 text-center text-info">Certifications & Extracurricular</h2>
+        <div class="row g-4 justify-content-center">
+            <div class="col-md-6">
+                <div class="card p-4 h-100">
+                    <h5 class="fw-bold text-light mb-2"><i class="bi bi-award-fill text-info me-2"></i>Quantitative & Logical Reasoning</h5>
+                    <p class="text-light mb-0">Completed structured coursework covering arithmetic, data interpretation, and analytical aptitude.</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card p-4 h-100">
+                    <h5 class="fw-bold text-light mb-2"><i class="bi bi-people-fill text-info me-2"></i>Soft Skills & Professional Development</h5>
+                    <p class="text-light mb-0">Trained in professional etiquette, teamwork, business communication, and technical presentation practices.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-center">
+        <div class="container">
+            <p class="mb-0">&copy; 2026 Adi Mohite. Built with Bootstrap 5.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS Bundle CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Reveal cards smoothly when they enter the screen
+        const animatedCards = document.querySelectorAll(".card");
+
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("show");
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.15
+        });
+
+        animatedCards.forEach((card) => revealObserver.observe(card));
+
+        // Add a subtle active effect to the navbar while scrolling
+        const sections = document.querySelectorAll("section[id]");
+        const navLinks = document.querySelectorAll(".nav-link");
+
+        window.addEventListener("scroll", () => {
+            let current = "";
+
+            sections.forEach((section) => {
+                const sectionTop = section.offsetTop - 120;
+                if (window.scrollY >= sectionTop) {
+                    current = section.getAttribute("id");
+                }
+            });
+
+            navLinks.forEach((link) => {
+                link.classList.remove("active");
+                if (link.getAttribute("href") === "#" + current) {
+                    link.classList.add("active");
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
